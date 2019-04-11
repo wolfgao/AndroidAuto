@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="86595a05-adb4-449c-86e9-af2996f9b743" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/utils/HTMLTestRunner.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/Logger.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/adbutils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/adbutils/adb_helper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/adbutils/adb_stf.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/adbutils/adb_strategy.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/adbutils/adblocal_helper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/stfutils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/stfutils/device_manger.py" afterDir="false" />
-    </list>
+    <list default="true" id="86595a05-adb4-449c-86e9-af2996f9b743" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,23 +155,6 @@
               <item name="AndroidAuto" type="b2602c69:ProjectViewProjectNode" />
               <item name="AndroidAuto" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="AndroidAuto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AndroidAuto" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AndroidAuto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AndroidAuto" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-              <item name="adbutils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AndroidAuto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AndroidAuto" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-              <item name="stfutils" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -247,7 +220,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
