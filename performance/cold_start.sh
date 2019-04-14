@@ -12,6 +12,8 @@
 package=''
 loops=20 #default is 20
 
+
+
 if [[ $# -eq 0 ]]; then
 	#statements
 	echo "No arguments."
@@ -20,6 +22,7 @@ if [[ $# -eq 0 ]]; then
 		the current activity, then start to test."
 	echo "So if no loop number， the default loop number is 20"
 fi
+
 if [[ $# -eq 1 ]]; then
 	#statements
 	package=$1
@@ -31,9 +34,9 @@ if [[ $# -ge 2 ]]; then
 fi
 
 if [[ -n package ]]; then
-	adb shell monkey -p ${package} -c android.intent.category.LAUNCHER 1
+	adb shell monkey -p ${package} -c android.intent.category.LAUNCHER 1 >/dev/null 2>&1
 fi
-#2>&1>/dev/null
+
 
 #statements
 dump_window=`adb shell dumpsys window |grep mFocusedWindow`
@@ -62,7 +65,7 @@ activity=${activity%%\}*}
 #create the test result file
 timestamp=$(date "+%Y%m%d_%H%M")
 #res="res/xg_start_"`get_timestamp.sh`".csv"
-res="cold_start_"$package"_"$timestamp".csv"
+res="results/cold_start_"$package"_"$timestamp".csv"
 touch $res
 echo "" > ${res}
 
@@ -75,7 +78,14 @@ sleep 5
 adb shell am start -W ${package}"/"${activity} | grep TotalTime >> ${res}
 sleep 2
 # 打印“.”的个数来表示循环次数，比如"..."表示第3次循环
-seq -s '.' $i |sed 's/[0-9]//g'
+#seq -s '.' $i |sed 's/[0-9]//g'
+echo -e $i"\t\c"
 done
 
 sed -i "" "s/: /,/g" ${res}
+
+echo -e "\n"
+echo -e $package "的冷起最终结果如下："
+#awk -F : '{print $1, $2}' ${res}
+awk -F , '{val=int($2); total+=val}END{print "总共冷起了" NR-1 "次，平均时间是:" total/(NR-1) " ms."}' ${res}
+
