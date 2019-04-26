@@ -4,7 +4,7 @@
 # @description:
 # This is a script to record the cold-start time for an activity
 # example:
-# sh cold-start.sh package_name 20
+# sh hot_start.sh package_name 20
 # 第一个参数是package name，用于起应用的
 # 第二个参数是循环多少次，用于最终统计平均时间的
 
@@ -15,7 +15,12 @@ activity=''
 
 source utils.sh
 
-get_package $1 $2
+get_package $1
+
+# set the loops from input, by default it is set to 20
+if [[ $# -ge 2 ]]; then
+    loops=$2
+fi
 
 #echo $package, $activity
 
@@ -28,11 +33,8 @@ else
 	exit 1
 fi
 
-source utils.sh
-
 #create the test result file
 timestamp=$(date "+%Y%m%d_%H%M")
-#res="res/xg_start_"`get_timestamp.sh`".csv"
 res="results/hot_start_"$package"_"$timestamp".csv"
 touch $res
 echo "" > ${res}

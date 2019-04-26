@@ -16,7 +16,12 @@ activity=''
 
 source utils.sh
 
-get_package $1 $2
+get_package $1
+
+# set the loops from input, by default it is set to 20
+if [[ $# -ge 2 ]]; then
+    loops=$2
+fi
 
 #echo $package, $activity
 
