@@ -5,7 +5,8 @@
 # @description:
 # This is a script to record the cold-start time for an activity
 # example:
-# sh cold-start.sh package_name 20
+# sh cold-start.sh package_name 2
+
 # 第一个参数是package name，用于起应用的
 # 第二个参数是循环多少次，用于最终统计平均时间的
 
@@ -15,7 +16,7 @@ package=''
 activity=''
 
 source utils.sh
-
+wakeup
 get_package $1
 
 # set the loops from input, by default it is set to 20
@@ -23,7 +24,7 @@ if [[ $# -ge 2 ]]; then
     loops=$2
 fi
 
-#echo $package, $activity
+echo $package, $activity
 
 if [ -n package ];then
 	echo -e "Is \""$package"\" that your tested app or window? \n"
@@ -36,13 +37,13 @@ fi
 
 #create the test result file
 timestamp=$(date "+%Y%m%d_%H%M")
-#res="res/xg_start_"`get_timestamp.sh`".csv"
 res="results/cold_start_"$package"_"$timestamp".csv"
 touch $res
 echo "" > ${res}
 
 function cold_start {
 	#execute the loop
+	echo "Start to test, will record the loop times. "
 	for((i=1; i<=$loops; i++));
 	do
 		adb shell am force-stop ${package}
@@ -54,6 +55,7 @@ function cold_start {
 		#seq -s '.' $i |sed 's/[0-9]//g'
 		echo -e $i"\t\c"
 	done
+	echo "Done."
 }
 
 cold_start
@@ -62,7 +64,7 @@ sed -i "" "s/: /,/g" ${res}
 
 echo -e "\n"
 echo -e $package "的冷起最终结果如下："
-#awk -F : '{print $1, $2}' ${res}
+awk -F : '{print $1, $2}' ${res}
 awk -F , '{val=int($2); total+=val}END{print "总共冷起了" NR-1 "次，平均时间是:" total/(NR-1) " ms."}' ${res}
 
 

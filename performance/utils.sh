@@ -1,5 +1,7 @@
 # This is a common shell scripts for android adb, am, wms, etc.
 
+password='0428'
+
 function get_package() {
 	if [[ $# -eq 1 ]]; then
 		#statements
@@ -32,6 +34,8 @@ function get_package() {
 
 function get_phone_display(){
     phone_display=`adb shell dumpsys window displays| grep -A 1 "mDisplayId=0"| awk -F"=|x| " 'END{print $6" "$7}'`
+    display_height=`echo $phone_display | awk -F " " '{print $1}'`
+    display_width=`echo $phone_display | awk -F " " '{print $2}'`
     echo $phone_display
 }
 
@@ -48,9 +52,8 @@ function get_HDMI(){
 #arg7- swipe time
 #arg1|arg2|arg3/arg4/arg5/arg6/arg7
 function swipe(){
+get_phone_display
 local check=`echo $1|awk -F "|" '{printf $1}'`
-display_height=`echo $phone_display | awk -F " " '{print $1}'`
-display_width=`echo $phone_display | awk -F " " '{print $2}'`
 if [ $check -gt 0 ];then
 	local device=`echo $1| awk -F "|" '{printf $2}'`
 	local PtoP=`echo $1|awk -F "|" '{printf $3}'`
@@ -71,4 +74,16 @@ if [ $check -gt 0 ];then
 		sleep 1
 	done
 fi
+}
+
+
+function wakeup() {
+  get_phone_display
+  local x1=`echo 0.5 $display_height|awk '{print $1*$2}'`
+  local x2=`echo 0.5 $display_height|awk '{print $1*$2}'`
+  local y1=`echo 0.8 $display_width|awk '{print $1*$2}'`
+  local y2=`echo 0.3 $display_width|awk '{print $1*$2}'`
+  adb shell input keyevent KEYCODE_POWER
+  adb shell input swipe $x1 $y1 $x2 $y2 1500 >/dev/null
+  adb shell input text $password && adb shell input keyevent 66
 }
